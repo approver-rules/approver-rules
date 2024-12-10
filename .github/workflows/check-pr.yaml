@@ -1,0 +1,32 @@
+name: Check PR title
+
+run-name: ${{ github.event.pull_request.title}} @${{ github.actor }}  (${{ github.event_name }})
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: ["opened", "reopened", "ready_for_review", "synchronize", "edited"]
+
+jobs:
+  check-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Check Labels
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_TITLE: ${{ github.event.pull_request.title }}
+      run: |
+        # Validate if the title have a specific flag (PRODUCT or TECH)
+        if [[ "$PR_TITLE" =~ '\[PRODUCT\]' ]]; then
+          echo "PR title contains PRODUCT. Adding PRODUCT label..."
+          gh pr edit ${{ github.event.pull_request.number }} --add-label "PRODUCT"
+        elif [[ "$PR_TITLE" =~ '\[TECH\]' ]]; then
+          echo "PR title contains TECH. Adding TECH label..."
+          gh pr edit ${{ github.event.pull_request.number }} --add-label "TECH"
+        else
+          echo "PR title does not contain PRODUCT or TECH. No label added."
+        fi
