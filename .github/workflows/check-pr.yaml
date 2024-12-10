@@ -27,4 +27,5 @@ jobs:
           gh pr edit ${{ github.event.pull_request.number }} --add-label "TECH"
         else
           echo "PR title does not contain PRODUCT or TECH. No label added."
+          exit 1
         fi
