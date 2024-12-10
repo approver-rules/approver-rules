@@ -22,11 +22,11 @@ jobs:
         if [[ "$PR_TITLE" =~ \[PRODUCT\] ]]; then
           echo "PR title contains PRODUCT. Adding PRODUCT label..."
           gh pr edit ${{ github.event.pull_request.number }} --add-label "PRODUCT"
-          gh pr review "${{ github.event.pull_request.number }}" --request-review --reviewer "@approver-rules/product"
+          gh pr edit "${{ github.event.pull_request.number }}" --request-review "@approver-rules/product"
         elif [[ "$PR_TITLE" =~ \[TECH\] ]]; then
           echo "PR title contains TECH. Adding TECH label..."
           gh pr edit ${{ github.event.pull_request.number }} --add-label "TECH"
-          gh pr review "${{ github.event.pull_request.number }}" --request-review --reviewer "@approver-rules/tech"
+          gh pr edit "${{ github.event.pull_request.number }}" --request-review "@approver-rules/product"
         else
           echo "PR title does not contain PRODUCT or TECH. No label added."
           exit 1
