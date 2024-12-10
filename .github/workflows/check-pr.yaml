@@ -5,10 +5,14 @@ run-name: ${{ github.event.pull_request.title}} @${{ github.actor }}  (${{ githu
 on:
   pull_request:
     types: ["opened", "reopened", "ready_for_review", "synchronize", "edited"]
+    
 
 jobs:
   check-pr-title:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
