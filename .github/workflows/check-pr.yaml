@@ -4,9 +4,9 @@ run-name: ${{ github.event.pull_request.title}} @${{ github.actor }}  (${{ githu
 
 on:
   pull_request:
+    branches:
+      - main
     types: ["opened", "reopened", "ready_for_review", "synchronize", "edited"]
-    
-permissions: write-all
 
 jobs:
   check-pr-title:
