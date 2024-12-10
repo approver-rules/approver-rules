@@ -19,10 +19,10 @@ jobs:
         PR_TITLE: ${{ github.event.pull_request.title }}
       run: |
         # Validate if the title have a specific flag (PRODUCT or TECH)
-        if [[ "$PR_TITLE" =~ '\[PRODUCT\]' ]]; then
+        if [[ "$PR_TITLE" =~ \[PRODUCT\] ]]; then
           echo "PR title contains PRODUCT. Adding PRODUCT label..."
           gh pr edit ${{ github.event.pull_request.number }} --add-label "PRODUCT"
-        elif [[ "$PR_TITLE" =~ '\[TECH\]' ]]; then
+        elif [[ "$PR_TITLE" =~ \[TECH\] ]]; then
           echo "PR title contains TECH. Adding TECH label..."
           gh pr edit ${{ github.event.pull_request.number }} --add-label "TECH"
         else
